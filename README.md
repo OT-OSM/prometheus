@@ -25,6 +25,27 @@ You can define any prometheus version that you want to install on your server
 
 There is no further dependency for this role you just need a server with 9090 port open. Other than this for Centos 6 we are using init script as systemd module is not available.
 
+
+## Directory Structure
+Directory structure:-
+```
+osm_prometheus
+├── defaults
+│   └── main.yml
+├── handlers
+│   └── main.yml
+├── hosts
+├── README.md
+├── site.yml
+├── tasks
+│   ├── debian.yml
+│   ├── main.yml
+│   └── redhat.yml
+└── templates
+    ├── prometheus.init.j2
+    ├── prometheus.service.j2
+    └── prometheus.yml.j2
+```
 ## Example Playbook
 
 Here is an example for the main playbook
