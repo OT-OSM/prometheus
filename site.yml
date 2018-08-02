@@ -1,0 +1,5 @@
+---
+- hosts: prometheus
+  user: root
+  roles:
+    -  prometheus
