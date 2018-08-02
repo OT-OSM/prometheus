@@ -34,7 +34,11 @@
     remote_src: yes
 
 - name: Move the binary executable file
-  command: mv /opt/prometheus-{{ prometheus_version }}.linux-amd64/prometheus /usr/bin/
+  copy: 
+    src: /opt/prometheus-{{ prometheus_version }}.linux-amd64/prometheus
+    dest: /usr/bin/
+    mode: 555
+    remote_src: yes
 
 - name: Create directory for Prometheus Configuration
   file:
