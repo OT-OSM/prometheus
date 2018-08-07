@@ -10,25 +10,30 @@ The basic requirments are:-
 - Centos/Ubuntu Server
 - Python should be installed on the target server so that ansible can perform task
 - 9090 port should be open in your server where you can see prometheus dashboard
-- Libselinux-python should be available on Centos 6 so that ansible can connect to it
+- libselinux-python should be available on Centos 6 so that ansible can connect to it
 
 ## Role Variables
-The role variables are defined in the [vars](https://gitlab.com/oosm/osm_prometheus/tree/master/vars). So there is not so many variables you just have to pass the prometheus version.
+The role variables are defined in the [defaults](https://gitlab.com/oosm/osm_prometheus/tree/master/defaults). So there is not so many variables you just have to pass the prometheus version.
 
 ```yaml
 # vars file for prometheus
 prometheus_version: "2.3.2"
 ```
-You can define any prometheus version that you want to install on your server
+You can define any prometheus version that you want to install on your server.
+
+|**Variable** | **Description**|
+|---------|------------|
+|prometheus_version | Prometheus will be downloaded from github releases, so you have to define version in [defaults](https://gitlab.com/oosm/osm_prometheus/tree/master/defaults)|
 
 ## Dependencies
 
-There is no further dependency for this role you just need a server with 9090 port open. Other than this for Centos 6 we are using init script as systemd module is not available.
-
+Here are the dependency for this role:-
+-  Port 9090 should be open in server
+- libselinux-python (For Centos6)
 
 ## Directory Structure
 Directory structure:-
-```
+```bash
 osm_prometheus
 ├── defaults
 │   └── main.yml
@@ -53,19 +58,24 @@ Here is an example for the main playbook
 ```yaml
 ---
 - hosts: prometheus
-  user: root
   roles:
-    -  prometheus
+    - osm_prometheus
 ```
 Here We are using root as an user but you can use different user, For that you just have to make become value true. Something like this:-
 ```yaml
 ---
 - hosts: prometheus
-  user: test-user
   become: true
   roles:
-    -  prometheus
+    - osm_prometheus
 ```
+
+For inventory you can create a host file in which you can define your server ip, For example:-
+```
+[prometheus]
+10.1.1.100
+```
+
 You can simply use this role by using this command
 ```shell
 ansible-playbook -i hosts site.yml
