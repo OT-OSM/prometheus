@@ -1,6 +1,7 @@
 ---
 - hosts: prometheus
-  user: root
+  user: 
+  become: true
   roles:
-    -  prometheus
+    - osm_prometheus
     

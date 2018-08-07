@@ -40,19 +40,15 @@
     mode: 555
     remote_src: yes
 
-- name: Create directory for Prometheus Configuration
+- name: Create directory for Prometheus Configuration and for Data dump
   file:
-    path: /etc/prometheus
+    path: "{{ item }}"
     state: directory
     owner: prometheus
     group: prometheus
-
-- name: Create Data Directory for Prometheus
-  file:
-    path: /var/lib/prometheus
-    state: directory
-    owner: prometheus
-    group: prometheus
+  with_items:
+    - /etc/prometheus
+    - /var/lib/prometheus
 
 - name: Adding Prometheus Configuration
   template:
