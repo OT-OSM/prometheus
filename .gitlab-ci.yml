@@ -1,0 +1,25 @@
+---
+stages:
+  - YAML Check
+  - Ansible Lint Check
+
+variables:
+  IMAGE_NAME: opstree/docker:ansible-lint
+
+Yaml-Lint-Verification:
+  stage: YAML Check
+  image: $IMAGE_NAME
+  script:
+    - yamllint *.yml
+  only:
+    - master
+  allow_failure: true
+
+Ansible-Lint-Verification:
+  stage: Ansible Lint Check
+  image: $IMAGE_NAME
+  script:
+    - ansible-lint -r /opt/rules/ ./*/*.yml
+  only:
+    - master
+  allow_failure: true
