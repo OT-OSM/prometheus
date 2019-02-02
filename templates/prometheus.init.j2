@@ -4,7 +4,7 @@
 . /etc/rc.d/init.d/functions
 
 PROGNAME=prometheus
-PROG=/usr/bin/$PROGNAME
+PROG=/usr/local/bin/$PROGNAME
 USER=prometheus
 LOGFILE=/var/log/prometheus/prometheus.log
 DATADIR=/var/lib/prometheus
@@ -13,7 +13,7 @@ CONFIG_FILE=/etc/prometheus/prometheus.yml
 
 start() {
     echo -n "Starting $PROGNAME: "
-    daemon --user $USER --pidfile="$LOCKFILE" "$PROG --config.file $CONFIG_FILE --storage.tsdb.path $DATADIR  &>$LOGFILE &"
+    daemon --user $USER --pidfile="$LOCKFILE" "$PROG --config.file $CONFIG_FILE --storage.tsdb.path $DATADIR --web.listen-address="{{ prometheus_ip }}:{{ prometheus_port }}" &>$LOGFILE &"
     echo $(pidofproc $PROGNAME) >$LOCKFILE
     echo
 }

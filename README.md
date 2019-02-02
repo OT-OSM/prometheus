@@ -1,6 +1,7 @@
-# Ansible Role for Prometheus
+# Ansible Role: Prometheus
 
 Prometheus is an opensource monitoring solution that gathers time series based numerical data. It is a project which was started by Google’s ex-employees at SoundCloud.
+
 To monitor your services and infra with prometheus your service need to expose an endpoint in the form of port or url. For ex:- {{ localhost:9090 }}. The endpoint is HTTP interface that exposes the metrics.
 
 ## Requirements
@@ -9,27 +10,27 @@ There is no particular requirment for running this role. As this role is platfor
 The basic requirments are:-
 - Centos/Ubuntu Server
 - Python should be installed on the target server so that ansible can perform task
-- 9090 port should be open in your server where you can see prometheus dashboard
 - libselinux-python should be available on Centos 6 so that ansible can connect to it
 
 ## Role Variables
-The role variables are defined in the [defaults](https://gitlab.com/oosm/osm_prometheus/tree/master/defaults). So there is not so many variables you just have to pass the prometheus version.
+The role variables are defined in the **defaults**. So there is not so many variables you just have to pass the prometheus version.
 
 ```yaml
 # vars file for prometheus
 prometheus_version: "2.3.2"
+prometheus_ip: "0.0.0.0"
+prometheus_port: "9090"
 ```
 You can define any prometheus version that you want to install on your server.
 
-|**Variable** | **Description**|
+|Variable | Description|
 |---------|------------|
-|prometheus_version | Prometheus will be downloaded from github releases, so you have to define version in [defaults](https://gitlab.com/oosm/osm_prometheus/tree/master/defaults)|
+|prometheus_version | Prometheus will be downloaded from github releases, so you have to define version in [defaults]|
+|prometheus_ip | IP of the server on which prometheus will expose its UI |
+|prometheus_port | Port no. of server on which prometheus should listen |
 
 ## Dependencies
-
-Here are the dependency for this role:-
--  Port 9090 should be open in server
-- libselinux-python (For Centos6)
+None :-)
 
 ## Directory Structure
 Directory structure:-
@@ -58,16 +59,18 @@ Here is an example for the main playbook
 ```yaml
 ---
 - hosts: prometheus
+  user: root
   roles:
-    - osm_prometheus
+    -  prometheus
 ```
 Here We are using root as an user but you can use different user, For that you just have to make become value true. Something like this:-
 ```yaml
 ---
 - hosts: prometheus
+  user: test-user
   become: true
   roles:
-    - osm_prometheus
+    -  prometheus
 ```
 
 For inventory you can create a host file in which you can define your server ip, For example:-
@@ -82,10 +85,8 @@ ansible-playbook -i hosts site.yml
 ```
 ## License
 
-BSD
+GNU
 
 ## Author Information
 
-This role is written and maintained by [Abhishek Dubey](https://gitlab.com/abhishek-dubey). If you have any queries and sugesstion, please feel free to reach.
-
-Email ID:- [abhishek.dubey@opstree.com]()
+This role is written and maintained by [Abhishek Dubey](https://github.com/iamabhishekdubey). If you have any queries and sugesstion, please feel free to reach.

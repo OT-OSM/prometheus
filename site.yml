@@ -1,7 +1,6 @@
 ---
-- hosts: prometheus
-  user: 
-  become: true
+- hosts: exporter
+  user: ubuntu
+  become: yes
   roles:
-    - osm_prometheus
-    
+    - ansible-role-prometheus
