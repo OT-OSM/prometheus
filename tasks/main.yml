@@ -9,3 +9,6 @@
   include_tasks: redhat.yml
   when:
     ansible_os_family == "RedHat"
+
+- name: Adding target file
+  include_tasks: config.yml
