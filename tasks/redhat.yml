@@ -53,8 +53,8 @@
   file:
     path: "{{ item }}"
     state: directory
-    owner: prometheus
-    group: prometheus
+    owner: "{{ user_name }}"
+    group: "{{ group_name }}"
   with_items:
     - /etc/prometheus
     - /var/lib/prometheus
@@ -63,8 +63,10 @@
   template:
     src: prometheus.yml.j2
     dest: /etc/prometheus/prometheus.yml
-    owner: prometheus
-    group: prometheus
+    owner: "{{ user_name }}"
+    group: "{{ group_name }}"
+  notify:
+    - restart_prometheus_service
 
 - name: Copy Service for Prometheus
   template:
