@@ -46,7 +46,7 @@
   copy:
     src: /tmp/prometheus-{{ version }}.linux-amd64/prometheus
     dest: /usr/local/bin/
-    mode: 0555
+    mode: 0550
     remote_src: yes
 
 - name: Create directory for Prometheus Configuration and for Data dump
@@ -63,6 +63,8 @@
   template:
     src: prometheus.yml.j2
     dest: /etc/prometheus/prometheus.yml
+    owner: prometheus
+    group: prometheus
 
 - name: Copy Service for Prometheus
   template:
