@@ -36,6 +36,11 @@
   when:
     ansible_distribution_major_version == "6"
 
+- name: Checking Prometheus Binary
+  stat:
+    path: "{{ prometheus_binary_path }}/prometheus"
+  register: check_prom_binary
+
 - name: Downloading the binary file for Prometheus
   unarchive:
     src: "{{ prometheus_url }}"
@@ -45,7 +50,7 @@
 - name: Move the binary executable file
   copy:
     src: /tmp/prometheus-{{ version }}.linux-amd64/prometheus
-    dest: /usr/local/bin/
+    dest: "{{ prometheus_binary_path }}"
     mode: 0550
     remote_src: yes
 
