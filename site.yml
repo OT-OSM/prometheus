@@ -1,6 +1,10 @@
 ---
-- hosts: exporter
+- hosts: telegraf
+  name: Gather facts from telegraf
+  tasks: [ ]
+
+- hosts: prometheus
   user: ubuntu
   become: yes
   roles:
-    - ansible-role-prometheus
+    - "{{ repodir }}/osm_prometheus"
