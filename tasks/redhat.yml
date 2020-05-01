@@ -46,6 +46,7 @@
     src: "{{ prometheus_url }}"
     dest: /tmp/
     remote_src: yes
+  when: check_prom_binary.stat.exists == false
 
 - name: Move the binary executable file
   copy:
