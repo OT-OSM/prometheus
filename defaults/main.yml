@@ -7,5 +7,5 @@ base_download_url: "https://github.com/prometheus/prometheus/releases/download"
 user_name: "prometheus"
 group_name: "prometheus"
 prometheus_binary_path: "/usr/local/bin"
-tgraf_port: "1212"
+tgraf_port: "9273"
 env: dev
