@@ -65,6 +65,13 @@
     - /etc/prometheus
     - /var/lib/prometheus
 
+- name: generate prom targets in targets.json
+  template:
+    src: targets.json.j2
+    dest: /etc/prometheus/targets.json
+    owner: "{{ user_name }}"
+    group: "{{ group_name }}"
+
 - name: Adding Prometheus Configuration
   template:
     src: prometheus.yml.j2

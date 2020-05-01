@@ -14,7 +14,7 @@
    name: prometheus
    shell: /bin/false
 
-- name: Setting internal variables for convinience
+- name: Setting internal variables for convenience
   set_fact:
     prometheus_url: "{{ base_download_url }}/v{{ version }}/prometheus-{{ version }}.linux-amd64.tar.gz"
 
@@ -46,6 +46,14 @@
   with_items:
     - /etc/prometheus
     - /var/lib/prometheus
+
+- name: generate prom targets in targets.json
+  template:
+    src: targets.json.j2
+    dest: /etc/prometheus/targets.json
+    owner: "{{ user_name }}"
+    group: "{{ group_name }}"
+  tags: this
 
 - name: Adding Prometheus Configuration
   template:

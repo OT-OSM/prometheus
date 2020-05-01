@@ -1,0 +1,16 @@
+{% set all_tgraf = [] -%}
+{% set tgraf_hosts = groups.telegraf %}
+{% for host in tgraf_hosts -%}
+  {% set tgraf_ip = hostvars[host].ipv4_address|default(hostvars[host]['ansible_default_ipv4']['address']) -%}
+  {% set _ = all_tgraf.append("%s:%s" % (tgraf_ip, tgraf_port)) -%}
+{% endfor -%}
+{% set tgraf_list = all_tgraf | join('", "') -%}
+[
+  {
+    "targets": [ "{{ tgraf_list }}" ],
+    "labels": {
+      "env": "{{ env }}",
+      "job": "telegraf"
+    }
+  }
+]
