@@ -36,6 +36,7 @@
     dest: "{{ prometheus_binary_path }}"
     mode: 0555
     remote_src: yes
+  when: check_prom_binary.stat.exists == false
 
 - name: Create directory for Prometheus Configuration and for Data dump
   file:
