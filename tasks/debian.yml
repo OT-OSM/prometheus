@@ -53,7 +53,6 @@
     dest: /etc/prometheus/targets.json
     owner: "{{ user_name }}"
     group: "{{ group_name }}"
-  tags: this
 
 - name: Adding Prometheus Configuration
   template:
