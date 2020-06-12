@@ -1,5 +1,7 @@
 ---
-# tasks file for prometheus
+- name: Prometheus Role Prerequisites
+  include_tasks: prerequisites.yml
+
 - name: Install prometheus on Debian
   include_tasks: debian.yml
   when:
@@ -9,4 +11,9 @@
   include_tasks: redhat.yml
   when:
     ansible_os_family == "RedHat"
+
+- name: Setting up Agent Discovery
+  include_tasks: agent_discovery.yml
+  when:
+    agent_discovery == "yes"
 ...

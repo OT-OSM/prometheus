@@ -9,7 +9,8 @@ group_name: "prometheus"
 prometheus_binary_path: "/usr/local/bin"
 
 # please enter telegraf or node_exporter
-exporter: "telegraf"
+agent_discovery: "no"
+agent: "telegraf"
 tgraf_port: "9273"
 node_exporter_port: "9100"
 env: prod

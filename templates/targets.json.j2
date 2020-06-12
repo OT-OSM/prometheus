@@ -1,11 +1,11 @@
-{% if exporter == 'telegraf' -%}
+{% if agent == 'telegraf' -%}
   {% set agent_port = tgraf_port -%}
-{% elif exporter == 'node_exporter' -%}
+{% elif agent == 'node_exporter' -%}
   {% set agent_port = node_exporter_port -%}
 {% endif -%}
 
 {% set all_tgraf = [] -%}
-{% set tgraf_hosts = groups.telegraf %}
+{% set tgraf_hosts = groups.agents %}
 {% for host in tgraf_hosts -%}
   {% set tgraf_ip = hostvars[host].ipv4_address|default(hostvars[host]['ansible_default_ipv4']['address']) -%}
   {% set _ = all_tgraf.append("%s:%s" % (tgraf_ip, agent_port)) -%}
@@ -16,7 +16,7 @@
     "targets": [ "{{ tgraf_list }}" ],
     "labels": {
       "env": "{{ env }}",
-      "job": "telegraf"
+      "job": "{{ agent }}"
     }
   }
 ]
