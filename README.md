@@ -31,6 +31,7 @@ tgraf_port: "9273"
 node_exporter_port: "9100"
 env: prod
 ```
+
 You can define any prometheus version that you want to install on your server.
 
 #### Mandatory Variables
@@ -39,14 +40,9 @@ You can define any prometheus version that you want to install on your server.
 |------------|-----------------|-------------------|---------------|
 |prometheus_version | "2.3.2" | Any Version | Prometheus will be downloaded from github releases, so you have to define version |
 |prometheus_ip | "0.0.0.0" | | IP of the server on which prometheus will expose its UI |
-|agent_discovery | "no" | "yes"/"no" | Enable of Disable Agent Discovery, Agent Discovery added all the agents in Promtheus Configuration |
-|agent | "telegraf" | "telegraf"/"node_exporter" | Which agent you are using to get metrics. Supported Values are "node_exporter" and "telegraf" |
-|tgraf_port | "9273" | telegraf service port | if you are using telegraf, Port no. of telegraf on which telegraf is listening |
-|node_exporter_port | "9100" | Node Exporter Service Port | if Node Exporter is using as agent, Port no. of telegraf on which telegraf is listening |
-|env | "prod" | Any Enviornment Name | Enviornment, in which you agents are running |
-
 
 #### Optional Variables
+
 |**Variable**|**Default Value**|**Possible Values**|**Description**|
 |------------|-----------------|-------------------|---------------|
 |prometheus_port | "9090" | Prometheus Service Port | Port no. of server on which prometheus should listen |
@@ -54,9 +50,14 @@ You can define any prometheus version that you want to install on your server.
 |user_name | prometheus | Any User | Prometheus User Name |
 |group_name | prometheus | Any Group | Promtheus Group Name |
 |prometheus_binary_path| "/usr/loca/bin" | Any Path | Path to Copy Prometheus Binary |
+|agent_discovery | "no" | "yes"/"no" | Enable of Disable Agent Discovery, Agent Discovery added all the agents in Promtheus Configuration |
+|agent | "telegraf" | "telegraf"/"node_exporter" | Which agent you are using to get metrics. Supported Values are "node_exporter" and "telegraf" |
+|env | "prod" | Any Enviornment Name | Enviornment, in which you agents are running |
+|tgraf_port | "9273" | telegraf service port | if you are using telegraf, Port no. of telegraf on which telegraf is listening |
+|node_exporter_port | "9100" | Node Exporter Service Port | if Node Exporter is using as agent, Port no. of telegraf on which telegraf is listening |
 
 ## Dependencies
-None :-)
+- If Service Discovery is Enable, install one of telgraf and node exporter agent on each node, which must be added in prometheus targets.
 
 ## Directory Structure
 Directory structure:-
