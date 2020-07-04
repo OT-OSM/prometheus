@@ -16,7 +16,7 @@
 
 - name: Setting internal variables for convenience
   set_fact:
-    prometheus_url: "{{ base_download_url }}/v{{ version }}/prometheus-{{ version }}.linux-amd64.tar.gz"
+    prometheus_url: "{{ base_download_url }}/v{{ version }}/{{ prom_tar_file }}"
 
 - name: Checking Prometheus Binary
   stat:

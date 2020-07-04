@@ -7,6 +7,7 @@ base_download_url: "https://github.com/prometheus/prometheus/releases/download"
 user_name: "prometheus"
 group_name: "prometheus"
 prometheus_binary_path: "/usr/local/bin"
+prom_tar_file: "prometheus-{{ version }}.linux-amd64.tar.gz"
 
 # please enter telegraf or node_exporter
 agent_discovery: "no"
