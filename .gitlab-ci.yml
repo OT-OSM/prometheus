@@ -17,5 +17,5 @@ Ansible-Lint-Verification:
   stage: Ansible Lint Check
   image: $IMAGE_NAME
   script:
-    - ansible-lint -r /opt/rules/ ./*/*.yml
+    - ansible-lint ./*/*.yml
 
