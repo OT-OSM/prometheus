@@ -1,7 +1,7 @@
 ---
 - name: Updating cache and installing systemd and unzip
   apt:
-    update_cache: yes
+    update_cache: "yes"
     name: ['unzip', 'systemd']
     state: present
   register: task_result
@@ -11,8 +11,8 @@
 
 - name: Creating user for prometheus
   user:
-   name: prometheus
-   shell: /bin/false
+    name: prometheus
+    shell: /bin/false
 
 - name: Setting internal variables for convenience
   set_fact:
@@ -27,7 +27,7 @@
   unarchive:
     src: "{{ prometheus_url }}"
     dest: /tmp/
-    remote_src: yes
+    remote_src: "yes"
   when: check_prom_binary.stat.exists == false
 
 - name: Move the binary executable file
@@ -35,7 +35,7 @@
     src: /tmp/prometheus-{{ version }}.linux-amd64/prometheus
     dest: "{{ prometheus_binary_path }}"
     mode: 0555
-    remote_src: yes
+    remote_src: "yes"
   when: check_prom_binary.stat.exists == false
 
 - name: Create directory for Prometheus Configuration and for Data dump

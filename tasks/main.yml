@@ -16,4 +16,3 @@
   include_tasks: agent_discovery.yml
   when:
     agent_discovery == "yes"
-...

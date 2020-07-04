@@ -45,7 +45,7 @@
   unarchive:
     src: "{{ prometheus_url }}"
     dest: /tmp/
-    remote_src: yes
+    remote_src: "yes"
   when: check_prom_binary.stat.exists == false
 
 - name: Move the binary executable file
@@ -53,7 +53,7 @@
     src: /tmp/prometheus-{{ version }}.linux-amd64/prometheus
     dest: "{{ prometheus_binary_path }}"
     mode: 0550
-    remote_src: yes
+    remote_src: "yes"
 
 - name: Create directory for Prometheus Configuration and for Data dump
   file:
