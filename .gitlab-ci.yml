@@ -11,8 +11,6 @@ Yaml-Lint-Verification:
   image: $IMAGE_NAME
   script:
     - yamllint *.yml
-  only:
-    - master
   allow_failure: true
 
 Ansible-Lint-Verification:
@@ -20,6 +18,4 @@ Ansible-Lint-Verification:
   image: $IMAGE_NAME
   script:
     - ansible-lint -r /opt/rules/ ./*/*.yml
-  only:
-    - master
-  allow_failure: true
+
