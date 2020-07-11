@@ -1,17 +1,5 @@
 ---
 # default file for prometheus
-version: "2.16.0"
-prometheus_ip: "0.0.0.0"
-prometheus_port: "9090"
 base_download_url: "https://github.com/prometheus/prometheus/releases/download"
-user_name: "prometheus"
-group_name: "prometheus"
 prometheus_binary_path: "/usr/local/bin"
 prom_tar_file: "prometheus-{{ version }}.linux-amd64.tar.gz"
-
-# please enter telegraf or node_exporter
-agent_discovery: "no"
-agent: "telegraf"
-tgraf_port: "9273"
-node_exporter_port: "9100"
-env: prod

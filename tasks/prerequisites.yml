@@ -1,5 +1,5 @@
 ---
-- name: Checking Pprometheus hosts are defined or not
+- name: Checking Prometheus hosts are defined or not
   fail:
     msg: "Playbook failed due to missing or empty required group 'agents'"
-  when: groups['agents'] is not defined or groups['agents']|length == 0
+  when: groups['agents'] is not defined or groups['agents']|length == 0 and agent_discovery == "yes"
