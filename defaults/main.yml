@@ -1,6 +1,5 @@
 ---
-# vars file for prometheus
-version: "2.3.2"
-prometheus_ip: "0.0.0.0"
-prometheus_port: "9090"
+# default file for prometheus
 base_download_url: "https://github.com/prometheus/prometheus/releases/download"
+prometheus_binary_path: "/usr/local/bin"
+prom_tar_file: "prometheus-{{ version }}.linux-amd64.tar.gz"

@@ -1,7 +1,7 @@
 ---
 - name: Updating cache and installing systemd and unzip
   apt:
-    update_cache: yes
+    update_cache: "yes"
     name: ['unzip', 'systemd']
     state: present
   register: task_result
@@ -11,32 +11,39 @@
 
 - name: Creating user for prometheus
   user:
-   name: prometheus
-   shell: /bin/false
+    name: prometheus
+    shell: /bin/false
 
-- name: Setting internal variables for convinience
+- name: Setting internal variables for convenience
   set_fact:
-    prometheus_url: "{{ base_download_url }}/v{{ version }}/prometheus-{{ version }}.linux-amd64.tar.gz"
+    prometheus_url: "{{ base_download_url }}/v{{ version }}/{{ prom_tar_file }}"
+
+- name: Checking Prometheus Binary
+  stat:
+    path: "{{ prometheus_binary_path }}/prometheus"
+  register: check_prom_binary
 
 - name: Downloading the binary file for Prometheus
   unarchive:
     src: "{{ prometheus_url }}"
     dest: /tmp/
-    remote_src: yes
+    remote_src: "yes"
+  when: check_prom_binary.stat.exists == false
 
 - name: Move the binary executable file
   copy:
     src: /tmp/prometheus-{{ version }}.linux-amd64/prometheus
-    dest: /usr/local/bin/
+    dest: "{{ prometheus_binary_path }}"
     mode: 0555
-    remote_src: yes
+    remote_src: "yes"
+  when: check_prom_binary.stat.exists == false
 
 - name: Create directory for Prometheus Configuration and for Data dump
   file:
     path: "{{ item }}"
     state: directory
-    owner: prometheus
-    group: prometheus
+    owner: "{{ user_name }}"
+    group: "{{ group_name }}"
   with_items:
     - /etc/prometheus
     - /var/lib/prometheus
@@ -45,11 +52,17 @@
   template:
     src: prometheus.yml.j2
     dest: /etc/prometheus/prometheus.yml
+    owner: "{{ user_name }}"
+    group: "{{ group_name }}"
+  notify:
+    - restart_prometheus_service
 
 - name: Copy Service for Prometheus
   template:
     src: prometheus.service.j2
     dest: /etc/systemd/system/prometheus.service
+    owner: root
+    group: root
   notify:
     - reload_prometheus_service
     - restart_prometheus_service
