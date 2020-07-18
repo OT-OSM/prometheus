@@ -4,6 +4,14 @@ Prometheus is an opensource monitoring solution that gathers time series based n
 
 To monitor your services and infra with prometheus your service need to expose an endpoint in the form of port or url. For ex:- {{ localhost:9090 }}. The endpoint is HTTP interface that exposes the metrics.
 
+Version History
+---------------
+
+|**Date**| **Version**| **Description**| **Changed By** |
+|----------|---------|---------------|-----------------|
+|**Feb  2019** | v0.0.1 | Initial Draft | Abhishek Dubey<abhishek.dubey@opstree.com> |
+|**July 2020** | v0.1.0 | Added Service Discovey Feature| Mahesh Kumar<mahesh.kumar@opstree.com> |
+
 ## Requirements
 
 There is no particular requirment for running this role. As this role is platform independent for centos 6 or 7 and ubuntu 14 or 16. The only dependency for centos 6 is libselinux python and we have included that as well.
