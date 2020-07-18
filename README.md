@@ -9,8 +9,8 @@ Version History
 
 |**Date**| **Version**| **Description**| **Changed By** |
 |----------|---------|---------------|-----------------|
-|**Feb  2019** | v0.0.1 | Initial Draft | Abhishek Dubey<abhishek.dubey@opstree.com> |
-|**July 2020** | v0.1.0 | Added Service Discovey Feature| Mahesh Kumar<mahesh.kumar@opstree.com> |
+|**Feb  2019** | v0.0.1 | Initial Draft | [Abhishek Dubey](abhishek.dubey@opstree.com) |
+|**July 2020** | v0.1.0 | Added Service Discovery Feature| [Mahesh Kumar](mahesh.kumar@opstree.com) |
 
 ## Requirements
 
