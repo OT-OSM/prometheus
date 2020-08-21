@@ -6,11 +6,11 @@ After=network-online.target
 [Service]
 User={{ user_name }}
 Group={{ group_name }}
+
 Type=simple
 ExecStart={{ prometheus_binary_path }}/prometheus \
     --config.file /etc/prometheus/prometheus.yml \
-    --storage.tsdb.path /var/lib/prometheus/ \
-    --web.listen-address="{{ prometheus_ip }}:{{ prometheus_port }}"
+    --storage.tsdb.path /var/lib/prometheus/ 
 
 [Install]
 WantedBy=multi-user.target

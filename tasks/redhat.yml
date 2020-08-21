@@ -52,6 +52,8 @@
   copy:
     src: /tmp/prometheus-{{ version }}.linux-amd64/prometheus
     dest: "{{ prometheus_binary_path }}"
+    owner: "{{ user_name }}"
+    group: "{{ group_name }}"
     mode: 0550
     remote_src: "yes"
 
@@ -61,6 +63,7 @@
     state: directory
     owner: "{{ user_name }}"
     group: "{{ group_name }}"
+    recurse: yes
   with_items:
     - /etc/prometheus
     - /var/lib/prometheus
@@ -88,8 +91,9 @@
   file:
     path: /var/log/prometheus
     state: directory
-    owner: prometheus
-    group: prometheus
+    recurse: yes
+    owner: "{{ user_name }}"
+    group: "{{ group_name }}"
 
 - name: Restarting the init prometheus service
   service:
