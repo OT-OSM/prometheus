@@ -4,6 +4,8 @@ Prometheus is an opensource monitoring solution that gathers time series based n
 
 To monitor your services and infra with prometheus your service need to expose an endpoint in the form of port or url. For ex:- {{ localhost:9090 }}. The endpoint is HTTP interface that exposes the metrics.
 
+## This role is compatible with [Linux Hardened](https://github.com/OT-OSM/linux_armour) OS
+
 Version History
 ---------------
 
