@@ -1,7 +1,7 @@
 ---
 - name: Creating user for Prometheus
   user:
-    name: prometheus
+    name: "{{ user_name }}"
     shell: /bin/false
 
 - name: Setting internal variables for convinience
@@ -44,18 +44,24 @@
 - name: Downloading the binary file for Prometheus
   unarchive:
     src: "{{ prometheus_url }}"
-    dest: /tmp/
+    dest: "{{ unarchive_destination }}"
     remote_src: "yes"
   when: check_prom_binary.stat.exists == false
 
+- name: Checking prometheus files
+  ansible.builtin.stat:
+    path: "{{ unarchive_destination }}prometheus-{{ version }}.linux-amd64/prometheus"
+  register: check_unarchive_file_present
+
 - name: Move the binary executable file
   copy:
-    src: /tmp/prometheus-{{ version }}.linux-amd64/prometheus
+    src: "{{ unarchive_destination }}prometheus-{{ version }}.linux-{{ system_arch }}/prometheus"
     dest: "{{ prometheus_binary_path }}"
     owner: "{{ user_name }}"
     group: "{{ group_name }}"
     mode: 0550
     remote_src: "yes"
+  when: check_unarchive_file_present.stat.exists == true
 
 - name: Create directory for Prometheus Configuration and for Data dump
   file:
@@ -65,13 +71,13 @@
     group: "{{ group_name }}"
     recurse: yes
   with_items:
-    - /etc/prometheus
-    - /var/lib/prometheus
+    - "{{ prometheus_config_path }}"
+    - "{{ storage_path }}"
 
 - name: Adding Prometheus Configuration
   template:
     src: prometheus.yml.j2
-    dest: /etc/prometheus/prometheus.yml
+    dest: "{{ prometheus_config_path }}/prometheus.yml"
     owner: "{{ user_name }}"
     group: "{{ group_name }}"
   notify:
@@ -80,7 +86,7 @@
 - name: Copy Service for Prometheus
   template:
     src: prometheus.service.j2
-    dest: /etc/systemd/system/prometheus.service
+    dest: "{{ service_file_dest }}/prometheus.service"
   notify:
     - reload_prometheus_service
     - restart_prometheus_service

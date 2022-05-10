@@ -3,10 +3,31 @@
 version: "2.16.0"
 user_name: "prometheus"
 group_name: "prometheus"
+prom_tar_file: "prometheus-{{ version }}.linux-{{ system_arch }}.tar.gz"
+system_arch: amd64
+unarchive_destination: /tmp/
+prometheus_port: "9090"
 
-# please enter telegraf or node_exporter
+
+# prometheus configuration
+scrape_interval: 15s
+evaluation_interval: 15s
+alert_manager_target: alertmanager
+alert_manager_port: 9093
+
+
+# add exporter through telegraf or node_exporter
 agent_discovery: "no"
 agent: "telegraf"
 tgraf_port: "9273"
-node_exporter_port: "9100"
+node_exporter_port: "9101"
 env: prod
+
+
+# add prometheus exporter through ec2_sd_configs
+enable_ec2_sd_configs: "no"
+aws_region: us-east-1
+filter_tag_key: NodeExporter #Tag-Key to filter EC2 nodes
+filter_tag_value: Enable     #Tag-Value to filter EC2 nodes
+
+
