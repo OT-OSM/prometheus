@@ -13,10 +13,12 @@ Version History
 |----------|---------|---------------|-----------------|
 |**Feb  2019** | v0.0.1 | Initial Draft | [Abhishek Dubey](abhishek.dubey@opstree.com) |
 |**July 2020** | v0.1.0 | Added Service Discovery Feature| [Mahesh Kumar](mahesh.kumar@opstree.com) |
+|**April 2022** | v0.1.0 | Added ec2 sd configs plugin | [Varghese Kurian](varghese.palamoottil@opstree.com) |
+
 
 ## Requirements
 
-There is no particular requirment for running this role. As this role is platform independent for centos 6 or 7 and ubuntu 14 or 16. The only dependency for centos 6 is libselinux python and we have included that as well.
+There is no particular requirment for running this role. As this role is platform independent for centos 6 or 7 and ubuntu 14, 16 & 18. The only dependency for centos 6 is libselinux python and we have included that as well.
 The basic requirments are:-
 - Centos/Ubuntu Server
 - Python should be installed on the target server so that ansible can perform task
@@ -40,7 +42,15 @@ agent: "telegraf"
 tgraf_port: "9273"
 node_exporter_port: "9100"
 env: prod
+
+# please enter ec2 config details to enable
+enable_ec2_sd_configs: "no"
+aws_region: us-east-1
+filter_tag_key: NodeExporter #Tag-Key to filter EC2 nodes
+filter_tag_value: Enable     #Tag-Value to filter EC2 nodes
+
 ```
+
 
 You can define any prometheus version that you want to install on your server.
 
@@ -65,6 +75,9 @@ You can define any prometheus version that you want to install on your server.
 |env | "prod" | Any Enviornment Name | Enviornment, in which you agents are running |
 |tgraf_port | "9273" | telegraf service port | if you are using telegraf, Port no. of telegraf on which telegraf is listening |
 |node_exporter_port | "9100" | Node Exporter Service Port | if Node Exporter is using as agent, Port no. of telegraf on which telegraf is listening |
+| Enable_ec2_sd_configs | "yes" | yes or no | If you want to enable the ec2 plugin service then it should be yes |
+| Filter_tag_key | NodeExporter | Can be any name | Tag should be exporter name for better understanding |
+| Filter_tag_value | Enable | Can be any Bulien value | value should be bulien other than that ec2 plugin will no support |
 
 ## Dependencies
 - If Service Discovery is Enable, install one of telgraf and node exporter agent on each node, which must be added in prometheus targets.
@@ -140,6 +153,12 @@ You can simply use this role by using this command
 ```shell
 ansible-playbook -i hosts site.yml
 ```
+
+## New Feature requests
+Dynamic discovery support
+- AWS
+- Azure
+- DNS
 ## License
 
 GNU
