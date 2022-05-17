@@ -2,9 +2,9 @@
 
 A high end ansible role to install and configure Prometheus.
 
-### v0.1.0
-##### July 18, 2020
+### v0.2.1
+##### May 17, 2022
 
 #### :tada: New Features
 ##### [ADD]
-- Added Service Discovery Feature
+- Added feature to scrap targets from AWS EC2 instances
