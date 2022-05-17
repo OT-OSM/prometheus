@@ -7,4 +7,4 @@ A high end ansible role to install and configure Prometheus.
 
 #### :tada: New Features
 ##### [ADD]
-- Added feature to scrap targets from AWS EC2 instances
+- Added feature to retrieve scrap targets from AWS EC2 instances
